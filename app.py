@@ -8,7 +8,7 @@ import openpyxl.utils.dataframe
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:abc123@127.0.0.1/galenadb' 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:abc123@postgres/galenadb' 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = '/home/nathalialp/github/galena-challenge/uploads/' 
 db.init_app(app)
@@ -34,8 +34,7 @@ def create():
             fi.save(os.path.join(app.config['UPLOAD_FOLDER'],fn))
         else:
             os.mkdir('uploads')
-            fi.save(os.path.join(app.config['UPLOAD_FOLDER'],fn)) 
-        
+            fi.save(os.path.join(app.config['UPLOAD_FOLDER'],fn))    
         #return render_template('up.html', the_title="Upload Planilha", fn=fn)
         wb = load_workbook(os.path.join(app.config['UPLOAD_FOLDER'],fn))
         ws = wb.active
@@ -53,9 +52,5 @@ def delete(id):
     candidate.delete(id)
     return redirect(request.referrer)
 
-@app.route('/teste')
-def teste():
-    return render_template('teste.html')
-
-
-app.run(debug=True) 
+if __name__ == '__main__':
+    app.run(debug=True)
