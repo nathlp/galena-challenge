@@ -7,11 +7,8 @@ RUN pip3 install -r requirements.txt
 
 COPY app.py app.py
 COPY candidate_model.py candidate_model.py
-COPY galenadb.sql galenadb.sql
-COPY /templates /templates
-COPY /static /static
-COPY /uploads /uploads
-COPY __init__.py __init__.py
+COPY /templates templates
+COPY /static static
 
 ENV FLASK_APP=app.py
 
