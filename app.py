@@ -30,7 +30,12 @@ def create():
     if request.method =='POST':
         fi = request.files['filename']
         fn = secure_filename(fi.filename)
-        fi.save(os.path.join(app.config['UPLOAD_FOLDER'],fn))
+        if os.path.isdir('uploads'):
+            fi.save(os.path.join(app.config['UPLOAD_FOLDER'],fn))
+        else:
+            os.mkdir('uploads')
+            fi.save(os.path.join(app.config['UPLOAD_FOLDER'],fn)) 
+        
         #return render_template('up.html', the_title="Upload Planilha", fn=fn)
         wb = load_workbook(os.path.join(app.config['UPLOAD_FOLDER'],fn))
         ws = wb.active
@@ -53,4 +58,4 @@ def teste():
     return render_template('teste.html')
 
 
-app.run() 
+app.run(debug=True) 
