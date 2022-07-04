@@ -1,10 +1,8 @@
--- (docker run -d --name=galenadb -e POSTGRES_PASSWORD=abc123 -p 5432:5432 postgres)
+CREATE DATABASE galenadb;
 
-create database galenadb;
+\c galenadb;
 
-use galenadb;
-
-create table candidate(
+CREATE TABLE candidate(
     id int not null,
     email varchar(50) not null,
     name varchar(50) not null,
